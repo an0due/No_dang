@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fMain">
+
+    <fragment
+        android:id="@+id/fMain"
+        android:name="com.banana.Nodang.Fragment.fMain"
+        android:label="fMain">
+        <action
+            android:id="@+id/action_fMain_to_fScanCamera"
+            app:destination="@id/fScanCamera" />
+        <action
+            android:id="@+id/action_fMain_to_fStoreNutr"
+            app:destination="@+id/fStoreNutr"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fScanCamera"
+        android:name="com.banana.Nodang.Fragment.fScanCamera"
+        android:label="fScanCamera">
+        <action
+            android:id="@+id/action_fScanCamera_to_fResult"
+            app:destination="@id/fResult" />
+    </fragment>
+    <fragment
+        android:id="@+id/fResult"
+        android:name="com.banana.Nodang.Fragment.fResult"
+        android:label="fResult">
+        <action
+            android:id="@+id/action_fResult_to_fMain"
+            app:destination="@id/fMain" />
+        <action
+            android:id="@+id/action_fResult_to_fStoreNutr"
+            app:destination="@id/fStoreNutr" />
+    </fragment>
+    <fragment
+        android:id="@+id/fStoreNutr"
+        android:name="com.banana.Nodang.Fragment.fStoreNutr"
+        android:label="fragment_nutr"
+        tools:layout="@layout/fragment_nutr" >
+        <action
+            android:id="@+id/action_fStoreNutr_to_fNutrInsert"
+            app:destination="@id/fNutrInsert" />
+        <action
+            android:id="@+id/action_fStoreNutr_to_fMain"
+            app:destination="@id/fMain" />
+        <argument
+            android:name="date"
+            app:argType="string"
+            android:defaultValue="" />
+    </fragment>
+    <fragment
+        android:id="@+id/fNutrInsert"
+        android:name="com.banana.Nodang.Fragment.fNutrInsert"
+        android:label="fragment_nutr_insert"
+        tools:layout="@layout/fragment_nutr_insert" >
+        <action
+            android:id="@+id/action_fNutrInsert_to_fStoreNutr"
+            app:destination="@id/fStoreNutr" />
+        <argument
+            android:name="date"
+            app:argType="string"
+            android:defaultValue="" />
+    </fragment>
+</navigation>

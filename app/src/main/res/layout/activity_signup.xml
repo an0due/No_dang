@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView_signUpTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="회원가입"
+        android:textColor="#008200"
+        android:textSize="25sp"
+        android:layout_marginTop="50dp"/>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="250dp"
+        android:layout_height="1.2dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:background="#587558" />
+
+    <EditText
+        android:id="@+id/editText_email"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:hint="E-mail"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        android:textColor="@android:color/black"
+        android:textColorHint="#757575"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/check_border"/>
+
+    <EditText
+        android:id="@+id/editText_passWord"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:textColor="@android:color/black"
+        android:textColorHint="#757575"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/check_border"/>
+
+    <EditText
+        android:id="@+id/editText_name"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:hint="닉네임"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="@android:color/black"
+        android:textColorHint="#757575"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/check_border"/>
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="성별"
+        android:textColor="@color/black"/>
+
+    <RadioGroup
+        android:id="@+id/genderGroup"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
+
+        <RadioButton
+            android:id="@+id/gender_woman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="여성"
+            android:layout_weight="1"
+            android:buttonTint="#008200"
+            android:textColor="@color/black"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/gender_man"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="남성"
+            android:buttonTint="#008200"
+            android:layout_weight="1"
+            android:textColor="@color/black"/>
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/editText_Height"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:hint="키 (cm)"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        android:textColor="@android:color/black"
+        android:textColorHint="#757575"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/check_border"/>
+
+    <EditText
+        android:id="@+id/editText_weight"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:hint="현재 몸무게 (kg)"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:textColor="@android:color/black"
+        android:textColorHint="#757575"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/check_border"/>
+
+    <EditText
+        android:id="@+id/editText_goal"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:hint="목표 몸무게 (kg)"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:textColor="@android:color/black"
+        android:textColorHint="#757575"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/check_border"/>
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="활동량"
+        android:textColor="@color/black"/>
+    <RadioGroup
+        android:id="@+id/moveGroup"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginBottom="30dp">
+
+        <RadioButton
+            android:id="@+id/move_low"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="낮음"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:buttonTint="#008200"
+            android:checked="true" />
+        <RadioButton
+            android:id="@+id/move_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="보통"
+            android:layout_weight="1"
+            android:buttonTint="#008200"
+            android:textColor="@color/black"/>
+        <RadioButton
+            android:id="@+id/move_high"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="많음"
+            android:buttonTint="#008200"
+            android:layout_weight="1"
+            android:textColor="@color/black"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btn_join"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Join"
+        android:background="#008200" />
+</LinearLayout>

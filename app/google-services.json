@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1059820273950",
+    "project_id": "nodang-bc72a",
+    "storage_bucket": "nodang-bc72a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059820273950:android:6141333b73ba0b10d8090f",
+        "android_client_info": {
+          "package_name": "com.banana.Nodang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1059820273950-2mc839hhpcdfrj01olfs18tnkpr0tcmc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.banana.Nodang",
+            "certificate_hash": "507e6074adf2383487ad7211ef4a72cf55859a45"
+          }
+        },
+        {
+          "client_id": "1059820273950-68f11nttse0ssg0qmi51dj842of310od.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD40LvDrgzPKEgERvnlK1SqmUHU2VMATpQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1059820273950-68f11nttse0ssg0qmi51dj842of310od.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
