@@ -7,10 +7,13 @@ import android.app.Activity;
 import android.content.Context;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
@@ -20,11 +23,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.banana.Nodang.R;
 
+import com.banana.Nodang.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -43,15 +48,15 @@ import java.util.Date;
 
 public class fStoreNutr extends Fragment implements View.OnClickListener,FoodViewListener{
     private NavController navController = null;
+    private ProgressBar progressBar;
 
     private Context context;
     private Activity activity;
     private DatabaseReference mDatabase;
 
-    private TextView currentDate;
+    private TextView currentDate, daily_kcal;
     private ArrayList<StoreNutr> foodList = null;
     private StoreAdapter storeAdapter = null;
-
     private String day = null;
 
     @Override
@@ -76,7 +81,7 @@ public class fStoreNutr extends Fragment implements View.OnClickListener,FoodVie
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        findDate();
+//        findDate();
     }
 
     @Override
@@ -88,11 +93,44 @@ public class fStoreNutr extends Fragment implements View.OnClickListener,FoodVie
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
+
+        daily_kcal = view.findViewById(R.id.dailyText);
+
+        progressBar = view.findViewById(R.id.progress_store);
+        progressBar.setMin(1);
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("users").child(firebaseUser.getUid()).child("info").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                int dKcal = (int)user.getDailyKCal();
+                findDate(dKcal);
+                if (dKcal < 1){
+                    progressBar.setMax(2000);
+                }
+                progressBar.setMax(dKcal);
+                daily_kcal.setText(Integer.toString(dKcal));
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.foodlistView);
+
         storeAdapter = new StoreAdapter(foodList, getActivity(), this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(storeAdapter);
+
+        // 리사이클뷰 구분선 및 리스트 여백
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), layoutManager);
+//        recyclerView.addItemDecoration(dividerItemDecoration);
+        OffsetItemDecoration itemDecoration = new OffsetItemDecoration(50);
+        recyclerView.addItemDecoration(itemDecoration);
 
         String day = fStoreNutrArgs.fromBundle(getArguments()).getDate();
         currentDate = (TextView)view.findViewById(R.id.text_logo);
@@ -157,7 +195,24 @@ public class fStoreNutr extends Fragment implements View.OnClickListener,FoodVie
 
     }
 
-    private void findDate(){
+    private void setProgressBarData(int nProgress, int max) {
+        try {
+            Handler mHandler = new Handler(Looper.getMainLooper());
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if(progressBar.getProgress() >= max){
+                        progressBar.setProgress(max);
+                    }
+                    progressBar.incrementProgressBy(nProgress);
+                }
+            });
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void findDate(int dailyKcal){
         //StoreNutr storeNutr = new StoreNutr();
         /* 현재 날짜 가져오는데..? */
 //        Calendar calendar = Calendar.getInstance();
@@ -169,13 +224,36 @@ public class fStoreNutr extends Fragment implements View.OnClickListener,FoodVie
 //        if(day.length() > 6) {
 //            day = day.substring(2);
 //        }
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("users").child(user.getUid()).child(day).addChildEventListener(new ChildEventListener() {
+//        mDatabase.child("users").child(user.getUid()).child("info").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                    StoreNutr item = snapshot.getValue(StoreNutr.class);
+//                    foodList.add(item);
+//                    storeAdapter.notifyDataSetChanged();
+//                    sum = Integer.parseInt(item.getCont1());
+//                    setProgressBarData(sum); // food kcal 합치기
+//                }
+//
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+
+        mDatabase.child("users").child(firebaseUser.getUid()).child(day).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 StoreNutr item = snapshot.getValue(StoreNutr.class);
                 foodList.add(item);
+//              setLog("----------- foodList ---------" + item.getCont1());
+                double sum = Double.parseDouble(item.getCont1());
+//                setLog("------------sum ------------" + sum);
+                setProgressBarData((int)sum, dailyKcal);
                 storeAdapter.notifyDataSetChanged();
             }
 
@@ -199,11 +277,11 @@ public class fStoreNutr extends Fragment implements View.OnClickListener,FoodVie
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.text_logo:
-                findDate();
-                break;
-        }
+//        switch (view.getId()){
+//            case R.id.text_logo:
+//                findDate();
+//                break;
+//        }
     }
 
     @Override

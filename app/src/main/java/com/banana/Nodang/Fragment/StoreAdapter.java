@@ -33,7 +33,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull StoreAdapter.ViewHolder holder, int i) {
-        //holder.foodNumView.setText();
+        holder.foodNumView.setText("food"+(i+1));
         holder.productNameView.setText(foodList.get(i).getProductName());
         holder.cont1View.setText(foodList.get(i).getCont1());
     }

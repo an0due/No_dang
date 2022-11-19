@@ -75,6 +75,35 @@
         android:textColor="#008200"
         android:textSize="40dp"/>
 
+    <ProgressBar
+        android:id="@+id/progress_store"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:progressDrawable="@drawable/progress_drawable"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/guideline6" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1일 권장 칼로리   - "
+        android:textColor="@color/black"
+        android:layout_marginRight="10dp"
+        app:layout_constraintRight_toLeftOf="@+id/dailyText"
+        app:layout_constraintBottom_toTopOf="@+id/progress_store" />
+
+    <TextView
+        android:id="@+id/dailyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintBottom_toTopOf="@+id/progress_store" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -85,13 +114,13 @@
         app:layout_constraintBottom_toTopOf="@+id/btnCancel"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/guideline6">
+        app:layout_constraintTop_toBottomOf="@+id/guideline7">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/foodlistView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="@+id/foodlistTitle"/>
+            app:layout_constraintTop_toBottomOf="@+id/foodlistTitle" />
 
     </LinearLayout>
 

@@ -13,7 +13,6 @@
         android:textColor="#008200"
         android:textSize="25sp"
         android:layout_marginTop="50dp"/>
-
     <View
         android:id="@+id/view_line"
         android:layout_width="250dp"
@@ -22,6 +21,18 @@
         android:layout_marginBottom="20dp"
         android:layout_marginTop="10dp"
         android:background="#587558" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="100dp"
+            android:orientation="vertical">
 
     <EditText
         android:id="@+id/editText_email"
@@ -155,8 +166,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:layout_gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:layout_marginBottom="30dp">
+        android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/move_low"
@@ -183,13 +193,16 @@
             android:buttonTint="#008200"
             android:layout_weight="1"
             android:textColor="@color/black"/>
-    </RadioGroup>
-
+        </RadioGroup>
+        </LinearLayout>
+    </ScrollView>
     <Button
         android:id="@+id/btn_join"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
         android:text="Join"
         android:background="#008200" />
+
 </LinearLayout>
