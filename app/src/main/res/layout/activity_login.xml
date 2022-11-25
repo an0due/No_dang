@@ -52,8 +52,8 @@
         android:text="로그인"
         android:minHeight="60dp"
         android:background="#008200"
-        android:layout_marginBottom="10dp"/>
-
+        android:layout_marginBottom="20dp"/>
+    <!-- 구글로그인
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -67,14 +67,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp">
     </com.google.android.gms.common.SignInButton>
-
+    -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="아직 계정이 없나요?"
         android:textColor="#757575"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="20dp"/>
 
     <Button
         android:id="@+id/btn_signup"

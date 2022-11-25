@@ -163,6 +163,7 @@ public class SignUpActivity extends AppCompatActivity {
             setLog("일일 칼로리"+dailyKcal);
         }
 
+
         User user = new User(email, name, gender, height, weight, goal, move, dailyKcal);
         //데이터 저장
         mDatabase.child("users").child(fuser.getUid()).child("info").setValue(user)

@@ -89,32 +89,32 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // Google 로그인
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        buttonGoogle = findViewById(R.id.google_Login);
-        buttonGoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // google login 구현시 switch문으로 해야함
-                // SignUpActivity 연결setOnClickListener
-//                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-//                startActivityForResult(signInIntent, RC_SIGN_IN);
-                signIn();
-//                switch (v.getId()) {
-//                    case R.id.google_Login:
-//                        signIn(); // 구글 로그인 버튼 클릭시
-//                        break;
-//                    case R.id.sign_out:
-//                        signOut();
-//                        break;
-//                }
-            }
-        });
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestIdToken(getString(R.string.default_web_client_id))
+//                .requestEmail()
+//                .build();
+//
+//        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+//
+//        buttonGoogle = findViewById(R.id.google_Login);
+//        buttonGoogle.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // google login 구현시 switch문으로 해야함
+//                // SignUpActivity 연결setOnClickListener
+////                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+////                startActivityForResult(signInIntent, RC_SIGN_IN);
+//                signIn();
+////                switch (v.getId()) {
+////                    case R.id.google_Login:
+////                        signIn(); // 구글 로그인 버튼 클릭시
+////                        break;
+////                    case R.id.sign_out:
+////                        signOut();
+////                        break;
+////                }
+//            }
+//        });
 
 
         firebaseAuthListener = new FirebaseAuth.AuthStateListener() {

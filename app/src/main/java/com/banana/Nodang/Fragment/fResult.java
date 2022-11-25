@@ -3,6 +3,7 @@ package com.banana.Nodang.Fragment;
 import static com.banana.Nodang.Utils.LogDisplay.setLog;
 import static com.banana.Nodang.Utils.LogDisplay.setToast;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -33,6 +35,7 @@ import androidx.navigation.Navigation;
 
 import com.banana.Nodang.Pojo.ProductIngredientByProductName.MainI2790Response;
 import com.banana.Nodang.Pojo.ProductNameByBarCode.MainC005Response;
+import com.banana.Nodang.Pojo.ProductRawMaterials.MainC002Response;
 import com.banana.Nodang.R;
 import com.banana.Nodang.Retrofit.RetrofitAPI;
 import com.banana.Nodang.Retrofit.RetrofitClient;
@@ -50,8 +53,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,6 +67,7 @@ public class fResult extends Fragment {
     private RetrofitAPI retrofitAPI;
     private ProgressBar progressBar;
     private TextView productName, cont2, cont3, cont4, cont5, cont6, cont7, cont8, cont9, daily, prodKCal;
+    private TextView alertText, rawMtrl;
     private SeekBar seekBar;
     private int nKCal;
     private ImageView img;
@@ -141,7 +147,9 @@ public class fResult extends Fragment {
             daily = view.findViewById(R.id.dailyKcal);
             prodKCal = view.findViewById(R.id.productKCal);
             img = view.findViewById(R.id.backView);
-
+            //alertText = view.findViewById(R.id.alertText);
+            rawMtrl = view.findViewById(R.id.rawmtrl);
+            //alertText.setVisibility(View.INVISIBLE);
 
             Button btnStore = view.findViewById(R.id.btnStore);
             btnStore.setOnClickListener(new View.OnClickListener() {
@@ -161,12 +169,18 @@ public class fResult extends Fragment {
                 }
             });
 
+            rawMtrl.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getProductRawMaterials(productName.getText().toString());
+                }
+            });
+
             seekBar = view.findViewById(R.id.seekBar);
             seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     setLog(String.valueOf(progress));
-
                     if (progress == 0) {
                         setProgressBarData((int) (nKCal / 2));
                         if(!prodKCal.getText().toString().equals("자료 없음")){
@@ -373,19 +387,21 @@ public class fResult extends Fragment {
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
                     double n = Double.parseDouble(cont5.getText().toString());
-                    setLog("당 값" + n);
                     if(n > 25){
                         Resources res = getResources();
                         Drawable shape = ResourcesCompat.getDrawable(res, R.drawable.badback_drawable, getActivity().getTheme());
 //                        ImageView tv = (ImageView) view.findViewById(R.id.backView);
 //                        tv.setBackground(shape);
+                        //alertText.setVisibility(View.VISIBLE);
                         img.setBackground(shape);
+
                     }else{
                         Resources res = getResources();
                         Drawable shape = ResourcesCompat.getDrawable(res, R.drawable.background_drawable, getActivity().getTheme());
 //                        ImageView tv = (ImageView) view.findViewById(R.id.backView);
 //                        tv.setBackground(shape);
                         img.setBackground(shape);
+                        //alertText.setVisibility(View.INVISIBLE);
 //                        img.setBackgroundColor(R.drawable.background_drawable);
                     }
                 }
@@ -493,7 +509,6 @@ public class fResult extends Fragment {
 //            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 //                //setLog("데이터 확인"+snapshot.getValue());
 //                User user = snapshot.getValue(User.class);
-//                setLog("키 잘 출력됨?"+user.);
 //                // 표준체중 계산 (자신의키-100)*0.9
 //                double stdWeight = (Double.parseDouble(user.getHeight()) - 100) * 0.9;
 //                setLog("표준체중" + stdWeight);
@@ -536,7 +551,8 @@ public class fResult extends Fragment {
                         if (body.getC005().getResult().getCode().equals("INFO-000")) {
                             setLog("제품명 : " + body.getC005().getRow().get(0).getPrdlstNm());
                             productName.setText(body.getC005().getRow().get(0).getPrdlstNm());
-                            getProductIngredientByProductName(body.getC005().getRow().get(0).getPrdlstNm().replace(" ","_"));
+                            String name = body.getC005().getRow().get(0).getPrdlstNm().replace(" ","_");
+                            getProductIngredientByProductName(name);
                         } else {
                             setToast(activity, "제품명이 검색되지 않았습니다.");
                             setLog("제품명이 검색되지 않았습니다.");
@@ -554,26 +570,43 @@ public class fResult extends Fragment {
         }
     }
 
-    //    private void readUser(){
-//        mDatabase.child("users").child("테스트1").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                // Get Post object and use the values to update the UI
-//                if(dataSnapshot.getValue(User.class) != null){
-//                    User post = dataSnapshot.getValue(User.class);
-//                    Log.w("FireBaseData", "getData" + post.toString());
-//                } else {
-//                    Toast.makeText(MainActivity.this, "데이터 없음...", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                // Getting Post failed, log a message
-//                Log.w("FireBaseData", "loadPost:onCancelled", databaseError.toException());
-//            }
-//        });
-//    }
+    private void getProductRawMaterials(String strRmtl) {
+        RetrofitClient retrofitClient = RetrofitClient.getInstance();
+        strRmtl = strRmtl.replace(" ","_");
+        try {
+            if (retrofitClient != null) {
+                retrofitAPI = RetrofitClient.getRetrofitAPI();
+                retrofitAPI.getProductRawMaterials(strRmtl).enqueue(new Callback<MainC002Response>() {
+                    @Override
+                    public void onResponse(Call<MainC002Response> call, Response<MainC002Response> response) {
+                        MainC002Response body = response.body();
+                        if (body.getC002().getResult().getCode().equals("INFO-000")) {
+//                            setLog("원재료 : " + body.getC002().getRow().get(0).getRawmtrlNm());
+                            String str = body.getC002().getRow().get(0).getRawmtrlNm();
+                            String [] rmtl = str.split(","); // 기존 원재료 리스트
+
+                            List<String> rmtlList = new ArrayList<>(Arrays.asList(rmtl));
+                            String [] sugar = {"설탕","기타과당","유당","맥아엑기스","준초콜릿","가공버터"};
+                            //List<String> sugarlist = Arrays.asList(sugar);
+                            rmtlList.retainAll(Arrays.asList(sugar));
+                            // retainAll은 완전 문자열이 겹쳐야 한다. 기존 원재료리스트에서 중복된 것만 추출된다.
+                            rawMtrl.setText(rmtlList.toString());
+                        } else {
+                            setToast(activity, "원재료가 검색되지 않았습니다.");
+                            setLog("원재료가 검색되지 않았습니다.");
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<MainC002Response> call, Throwable t) {
+                        setLog("Reponse Error : " + t.getMessage());
+                    }
+                });
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     // 식품 저장 유저 정보 받아서
     // 현재날짜 -> food1,2,3
     private void saveNutr(String productName,String cont1, String cont2, String cont3,String cont4, String cont5, String cont6, String cont7, String cont8, String cont9){
@@ -672,10 +705,12 @@ public class fResult extends Fragment {
                                         if(n > 25){
                                             Resources res = getResources();
                                             Drawable shape = ResourcesCompat.getDrawable(res, R.drawable.badback_drawable, getActivity().getTheme());
+                                            //alertText.setVisibility(View.VISIBLE);
                                             img.setBackground(shape);
                                         }else{
                                             Resources res = getResources();
                                             Drawable shape = ResourcesCompat.getDrawable(res, R.drawable.background_drawable, getActivity().getTheme());
+                                            //alertText.setVisibility(View.INVISIBLE);
                                             img.setBackground(shape);
                                         }
                                         contList.add(Float.parseFloat(cont5.getText().toString()));

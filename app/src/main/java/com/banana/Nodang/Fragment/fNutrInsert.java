@@ -107,7 +107,13 @@ public class fNutrInsert extends Fragment {
                 String getCont7 = cont7.getText().toString();
                 String getCont8 = "자료 없음";
                 String getCont9 = "자료 없음";
-                insertNutr(getProductName, getCont1, getCont2, getCont3, getCont4, getCont5, getCont6, getCont7, getCont8, getCont9);
+                if (!getProductName.replace(" ", "").equals("")) {
+                    if(!getCont1.replace(" ", "").equals("")){
+                        insertNutr(getProductName, getCont1, getCont2, getCont3, getCont4, getCont5, getCont6, getCont7, getCont8, getCont9);
+                    }
+                    setToast(activity, "칼로리는 필수 입력 정보입니다.");
+                }
+                setToast(activity, "제품명은 필수 입력 정보입니다.");
             }
         });
     }

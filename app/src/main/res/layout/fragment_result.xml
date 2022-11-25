@@ -5,7 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
+    <!--
+    <TextView
+        android:id="@+id/alertText"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:text="당 1일 권장량 초과"
+        android:textSize="15dp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    -->
     <ImageView
         android:id = "@+id/backView"
         android:layout_width="match_parent"
@@ -195,9 +208,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnReScan"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@+id/btnReScan"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -206,11 +227,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="match_parent"
         android:layout_marginBottom="30dp"
         android:orientation="vertical"
-        android:weightSum="8">
+        android:weightSum="9">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -395,9 +415,22 @@
                 android:text="@string/search"
                 android:textColor="@color/black" />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/rawmtrl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="이 글씨를 터치하면 식품 속 당 원재료를 추출합니다."
+                android:bufferType="spannable"
+                android:textColor="@color/black" />
+        </LinearLayout>
     </LinearLayout>
-    </ScrollView>
-
+    </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
     <Button
         android:id="@+id/btnReScan"
         android:layout_width="wrap_content"

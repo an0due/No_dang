@@ -160,6 +160,7 @@
         android:layout_gravity="center"
         android:text="활동량"
         android:textColor="@color/black"/>
+
     <RadioGroup
         android:id="@+id/moveGroup"
         android:layout_width="250dp"

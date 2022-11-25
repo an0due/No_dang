@@ -95,7 +95,6 @@ public class fStoreNutr extends Fragment implements View.OnClickListener,FoodVie
         navController = Navigation.findNavController(view);
 
         daily_kcal = view.findViewById(R.id.dailyText);
-
         progressBar = view.findViewById(R.id.progress_store);
         progressBar.setMin(1);
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
